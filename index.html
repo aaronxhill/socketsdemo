@@ -1,0 +1,10 @@
+<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+<script>
+  var socket = io.connect('https://ds-fall-15-aaronxhill.c9.io/');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+</script>
+
+<h1>hello, world</h1>
