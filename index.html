@@ -1,6 +1,6 @@
 <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
 <script>
-  var socket = io.connect('https://ds-fall-15-aaronxhill.c9.io/');
+  var socket = io.connect('http://ec2-52-90-228-208.compute-1.amazonaws.com/');
   socket.on('news', function (data) {
     console.log(data);
     socket.emit('my other event', { my: 'data' });
