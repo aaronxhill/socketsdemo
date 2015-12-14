@@ -1,6 +1,6 @@
 var fs = require('fs');
 var data1 = fs.readFileSync(__dirname + '/index1.html');
-var data2 = fs.readFileSync(__dirname + '/index2.html');
+// var data2 = fs.readFileSync(__dirname + '/index2.html');
 var data3 = fs.readFileSync(__dirname + '/index3.html');
 
 var app = require('http').createServer(handler)
@@ -36,7 +36,7 @@ function handler (req, res) {
         if (handleError(err)) return;
 
         // get the total number of visits today (including the current visit)
-        client.query('SELECT * FROM buttondata;', function(err, result) {
+        client.query('SELECT * FROM buttondata2;', function(err, result) {
 
             // handle an error from the query
             if (handleError(err)) return;
