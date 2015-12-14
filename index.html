@@ -103,6 +103,7 @@ function addDotAndRefreshGraph () {
 
 var socket = io.connect('http://ec2-52-90-228-208.compute-1.amazonaws.com/');
 socket.on('newData', function () {
+	console.log('getting newData')
     addDotAndRefreshGraph()
 })
 
