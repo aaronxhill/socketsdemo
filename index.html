@@ -1,10 +1,111 @@
-<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
-<script>
-  var socket = io.connect('http://ec2-52-90-228-208.compute-1.amazonaws.com/');
-  socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
-  });
-</script>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>   
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script> 
+    </head>
+    
+    <body>
+        <script type="text/javascript">
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
-<h1>hello, world</h1>
+var w = 1000, h = 400; 
+
+var mintime = new Date("2015-11-10T21:46:29.483Z").getTime();
+var maxtime = new Date().getTime() + (60000 * 60); 
+
+var dataset = [
+{
+message: "hello, button",
+buttontime: "2015-11-10T21:46:29.483Z"
+},
+{
+message: "hello, button",
+buttontime: "2015-11-10T22:28:24.033Z"
+},
+{
+message: "hello, button from Node",
+buttontime: "2015-11-10T22:39:11.820Z"
+},
+{
+message: "hello, button from Node",
+buttontime: "2015-11-10T22:39:24.955Z"
+},
+{
+message: "hello, button from Node",
+buttontime: "2015-11-10T22:39:28.470Z"
+},
+{
+message: "hello, button from Node",
+buttontime: "2015-11-10T22:43:31.026Z"
+},
+{
+message: "hello, button from Node",
+buttontime: "2015-11-10T22:43:31.770Z"
+},
+{
+message: "hello, button from Node",
+buttontime: "2015-12-03T12:34:06.112Z"
+}
+];
+
+for (var i=0; i < dataset.length; i++) {
+    dataset[i].x = getRandomArbitrary(0, w);
+    dataset[i].y = getRandomArbitrary(0, h);
+    dataset[i].time = new Date(dataset[i].buttontime).getTime();
+}
+
+function addDot () {
+    var toAdd = {}; 
+    toAdd.time = new Date().getTime(); 
+    toAdd.x = getRandomArbitrary(0, w);
+    toAdd.y = getRandomArbitrary(0, h);
+    dataset.push(toAdd);
+}
+
+//Create SVG element
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+var color = d3.scale.linear()
+    .domain([mintime, maxtime])
+    .range(["blue", "red"]);
+
+var refreshGraph = function() {
+svg.selectAll("circle")
+   .data(dataset)
+   .enter()
+   .append("circle")
+
+   .attr("cx", function(d) {
+        return d.x;
+   })
+   .attr("cy", function(d) {
+        return d.y;
+   })
+   .attr("r", 5)
+   .attr("fill", function (d){
+        return color(d.time);
+   });
+}; 
+refreshGraph(); 
+
+function addDotAndRefreshGraph () {
+    addDot()
+    refreshGraph()
+}
+
+var socket = io();
+socket.on('newData', function () {
+    addDotAndRefreshGraph()
+})
+
+        </script>
+    </body>
+</html> 
