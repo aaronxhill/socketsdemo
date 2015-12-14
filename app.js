@@ -33,7 +33,7 @@ function handler (req, res) {
     res.write(data1);
     res.write(data2);
     res.end(data3);
-  });
+  // });
 }
 
 
