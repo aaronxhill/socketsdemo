@@ -54,7 +54,6 @@ function handler (req, res) {
 }
 
 io.on('connection', function (socket) {
-  // socket.emit('news', { hello: 'world' });
   socket.on('buttonPress', function (data) {
     io.emit('newData', { newD : 'relay data to browser' });
     console.log('button was pressed on local client');
